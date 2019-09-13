@@ -2,9 +2,13 @@ const express = require('express');
 const app= express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
+
+mongoose.connect('mongodb+srv://restAPI:trinhvanvinh018@restapi-4od1g.mongodb.net/test?retryWrites=true&w=majority'
+  );
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
@@ -17,7 +21,9 @@ app.use((req, res, next)=>{
     );
     if(req.method === 'OPTIONS' ){
         res.header('Access-Control-Alow-Methods','PUT', 'POST','GET', 'DELETE', 'PATH');
+        return res.status(200).json({});
     }
+    next();
 });
 
 app.use('/products', productRoutes);
