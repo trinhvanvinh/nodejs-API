@@ -9,6 +9,7 @@ const orderRoutes = require('./api/routes/orders');
 
 mongoose.connect('mongodb+srv://restAPI:trinhvanvinh018@restapi-4od1g.mongodb.net/test?retryWrites=true&w=majority'
   );
+  mongoose.Promise=global.Promise;
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
