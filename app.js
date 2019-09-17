@@ -7,11 +7,13 @@ const mongoose = require('mongoose');
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
 
-mongoose.connect('mongodb+srv://restAPI:trinhvanvinh018@restapi-4od1g.mongodb.net/test?retryWrites=true&w=majority'
+mongoose.connect('mongodb+srv://restAPI:trinhvanvinh018@restapi-4od1g.mongodb.net/test?retryWrites=true&w=majority',
+{ useNewUrlParser: true }
   );
   mongoose.Promise=global.Promise;
 
 app.use(morgan('dev'));
+app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
