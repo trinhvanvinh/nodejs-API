@@ -2,27 +2,18 @@ const express =  require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const multer = require('multer');
+const checkAuth = require('../middleware/check-auth');
 
-<<<<<<< HEAD
 
-const storage= multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './uploads');
-    
-    },
-    filename:function (req, file, cb) {
-=======
 const storage = multer.diskStorage({
     destination:function(req, file, cb){
         cb(null, './uploads/');
     },
     filename:function(req, res, cb){
->>>>>>> 0fe11b0ec11d960c270f861722a7b569e53f01c9
         cb(null, new Date().toISOString()+file.originalname);
     }
 });
 
-<<<<<<< HEAD
 const fileFilter = (req, file, cb) => {
   // reject a file
   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
@@ -36,24 +27,8 @@ const upload = multer({storage: storage,
   limits: {
     fileSize: 1024 * 1024 * 5
   },
-  fileFilter: fileFilter })
-=======
-const fileFilter = (req, file, cb)=>{
-    if(file.mimetype === 'image/jpeg'
-    || file.mimetype === 'image/png'
-    ){
-        cb(null, true);
-    }else{
-        cb(null, false);
-    }  
-}
-
-const upload = multer({storage: storage, limits:{
-    fileSize: 1024 * 1024 * 5
-}, 
-    fileFilter: fileFilter
-});
->>>>>>> 0fe11b0ec11d960c270f861722a7b569e53f01c9
+  fileFilter: fileFilter 
+})
 
 const Product = require('../../models/products');
 
@@ -98,12 +73,10 @@ router.get('/', (req,res, next)=>{
 
 });
 
-router.post('/', upload.single('productImage') ,(req, res, next)=>{
+router.post('/', checkAuth, upload.single('productImage') ,(req, res, next)=>{
 
     console.log(req.file);
-
-    console.log(req.file);
-
+    
     const product = new Product({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,

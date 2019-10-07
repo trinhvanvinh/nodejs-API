@@ -9,12 +9,10 @@ const orderRoutes = require('./api/routes/orders');
 const userRoutes = require('./api/routes/user');
 
 mongoose.connect('mongodb+srv://restAPI:trinhvanvinh018@restapi-4od1g.mongodb.net/test?retryWrites=true&w=majority',
-<<<<<<< HEAD
+
    { useUnifiedTopology: true
 },{ useNewUrlParser: true }, { useMongoClient: true}
-=======
-{ useNewUrlParser: true }
->>>>>>> 0fe11b0ec11d960c270f861722a7b569e53f01c9
+
   );
   mongoose.Promise=global.Promise;
 
